@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound,HttpResponseRedirect
 from django.urls import reverse
+from django.template.loader import render_to_string
 
 # Create your views here.
 
@@ -17,22 +18,31 @@ challenge_text = {
     "sep":"Welcome to september!",
     "oct":"Welcome to october!",
     "nov":"Welcome to november!",
-    "dec":"Welcome to december!"
+    "dec":None
 }
 
 def index(request):
     months = list(challenge_text.keys())
-    month_li = ""
-    for month in months:
-        redirect_url = reverse("monthly_challenges",args=[month])
-        month_li += f"<li><a href=\"{redirect_url}\">{month.capitalize()}</a></li>"
-    monthly_challenges_list = f"<ul>{month_li}</ul>"
-    return HttpResponse(monthly_challenges_list)
+    # month_li = ""
+    # for month in months:
+    #     redirect_url = reverse("monthly_challenges",args=[month])
+    #     month_li += f"<li><a href=\"{redirect_url}\">{month.capitalize()}</a></li>"
+    # monthly_challenges_list = f"<ul>{month_li}</ul>"
+    # return HttpResponse(monthly_challenges_list)
+    details =  render(request,"challenges/index.html",{
+        "months":months
+    })
+    return HttpResponse(details)
 
 
 def mothly_challenges(request,month):
      try:
-        msg = challenge_text[month]
+        month_txt = challenge_text[month]
+        # msg = render_to_string("challenges/challenges.html")
+        msg = render(request,"challenges/challenges.html",{
+            "text":month_txt,
+            "month":month
+        })
         return HttpResponse(msg)
      except:
         return HttpResponseNotFound("Not supported!!")
