@@ -1,4 +1,21 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block page_title %}
+    Monthly challenges
+{% endblock page_title %}
+
+{% block content %}
+<ul>
+    {%for month in months %}
+        <li><a href = "{% url "monthly_challenges" month %}">{{ month| title}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock content %}
+
+
+
+
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charshet="UTF-8"></meta>
@@ -9,11 +26,11 @@
 
     <ul>
         {%for month in months %}
-            {% comment %} <li><a href = "{{month}}">{{ month| title}}</a></li> {% endcomment %}
+            {% comment %} <li><a href = "{{month}}">{{ month| title}}</a></li>
             <li><a href = "{% url "monthly_challenges" month %}">{{ month| title}}</a></li>
         {% endfor %}
     </ul>
 
 
 </body>
-</html>
+</html> {% endcomment %}

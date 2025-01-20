@@ -45,6 +45,7 @@ def mothly_challenges(request,month):
         })
         return HttpResponse(msg)
      except:
+        response = render_to_string("404error.html")
         return HttpResponseNotFound("Not supported!!")
     
 

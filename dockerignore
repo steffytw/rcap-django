@@ -1,0 +1,6 @@
+venv
+.idea/
+db.sqlite3
+mypage/__pycache__/
+challenges/__pycache__/
+challenges/migrations/__pycache__
