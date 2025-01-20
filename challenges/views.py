@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound,HttpResponseRedirect
+from django.http import HttpResponse,Http404, HttpResponseNotFound,HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
 
@@ -45,8 +45,9 @@ def mothly_challenges(request,month):
         })
         return HttpResponse(msg)
      except:
-        response = render_to_string("404error.html")
-        return HttpResponseNotFound("Not supported!!")
+        response = render_to_string("404.html")
+        # raise Http404
+        return HttpResponseNotFound(response)
     
 
 
